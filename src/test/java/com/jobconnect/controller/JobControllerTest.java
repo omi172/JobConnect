@@ -25,14 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-/**
- * Slice test for the MVC layer: verifies routing, view names, and that
- * our custom SecurityConfig enforces role-based access on protected endpoints.
- * SecurityConfig + JwtAuthFilter are imported explicitly since @WebMvcTest does
- * not pick up user-defined @Configuration classes by default; JwtAuthFilter's
- * own dependencies (JwtUtil, CustomUserDetailsService) are mocked so no real
- * JWT parsing or DB lookups happen in this slice.
- */
+
 @WebMvcTest(controllers = JobController.class)
 @Import({SecurityConfig.class, JwtAuthFilter.class})
 class JobControllerTest {
