@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Applications - JobConnect</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>My Applications</h1>
+    <div class="alert success" th:if="${param.applied}">Application submitted successfully.</div>
+
+    <div th:if="${#lists.isEmpty(applications)}" class="card">
+        <p class="muted">You haven't applied to any jobs yet. <a th:href="@{/jobs}">Browse jobs</a>.</p>
+    </div>
+
+    <div class="card" th:each="app : ${applications}">
+        <h3 th:text="${app.jobTitle}"></h3>
+        <p><span class="badge" th:text="${app.status}"></span></p>
+        <p class="muted" th:text="'Applied on ' + ${#temporals.format(app.appliedAt, 'dd MMM yyyy HH:mm')}"></p>
+    </div>
+</div>
+</body>
+</html>

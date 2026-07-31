@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: jobconnect-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: jobconnect-app
+    restart: unless-stopped
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/jobconnect
+      JWT_SECRET: ChangeThisSecretInProductionEnvironmentsPlease123456
+      JWT_EXPIRATION_MS: 86400000
+      SMS_PROVIDER: MOCK
+      # To enable real SMS delivery, set SMS_PROVIDER=TWILIO and supply:
+      # TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER
+
+volumes:
+  mongo-data:

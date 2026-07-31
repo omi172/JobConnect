@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: jobconnect
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/jobConnect}
+  thymeleaf:
+    cache: false
+
+# Custom app properties
+jobconnect:
+  jwt:
+    secret: ${JWT_SECRET:ThisIsADevOnlySecretKeyPleaseChangeInProdEnvironment123456}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}   # 24 hours
+  sms:
+    provider: ${SMS_PROVIDER:MOCK}                 # MOCK or TWILIO
+    twilio:
+      account-sid: ${TWILIO_ACCOUNT_SID:}
+      auth-token: ${TWILIO_AUTH_TOKEN:}
+      from-number: ${TWILIO_FROM_NUMBER:}
+
+logging:
+  level:
+    com.jobconnect: DEBUG
+    org.springframework.security: INFO

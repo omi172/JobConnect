@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Job Postings - JobConnect</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>My Job Postings</h1>
+    <div class="alert success" th:if="${param.posted}">Job posted successfully.</div>
+    <div class="alert success" th:if="${param.updated}">Job updated successfully.</div>
+    <div class="alert success" th:if="${param.deleted}">Job deleted.</div>
+
+    <p><a class="btn" th:href="@{/jobs/post}">+ Post New Job</a></p>
+
+    <div th:if="${#lists.isEmpty(jobs)}" class="card">
+        <p class="muted">You haven't posted any jobs yet.</p>
+    </div>
+
+    <div class="card" th:each="job : ${jobs}">
+        <h3 th:text="${job.title}"></h3>
+        <p class="muted" th:text="${job.location} + ' · Deadline: ' + ${#temporals.format(job.deadline, 'dd MMM yyyy')}"></p>
+        <a class="btn" th:href="@{'/jobs/employer/applications/' + ${job.id}}">View Applicants</a>
+        <a class="btn secondary" th:href="@{'/jobs/edit/' + ${job.id}}">Edit</a>
+        <form th:action="@{'/jobs/delete/' + ${job.id}}" method="post" style="display:inline;">
+            <button class="btn danger" type="submit"
+                    onclick="return confirm('Delete this job posting?');">Delete</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicants - JobConnect</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1 th:text="'Applicants for ' + ${job.title}"></h1>
+
+    <div th:if="${#lists.isEmpty(applications)}" class="card">
+        <p class="muted">No applications yet.</p>
+    </div>
+
+    <table th:if="${!#lists.isEmpty(applications)}" class="card">
+        <thead>
+        <tr><th>Applicant</th><th>Status</th><th>Applied On</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="app : ${applications}">
+            <td th:text="${app.seekerName}"></td>
+            <td><span class="badge" th:text="${app.status}"></span></td>
+            <td th:text="${#temporals.format(app.appliedAt, 'dd MMM yyyy HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

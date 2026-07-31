@@ -1,0 +1,24 @@
+<nav xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="navbar" class="navbar">
+    <a class="brand" th:href="@{/jobs}">JobConnect</a>
+    <div class="links">
+        <a th:href="@{/jobs}">Browse Jobs</a>
+
+        <span sec:authorize="hasRole('EMPLOYER')">
+            <a th:href="@{/jobs/post}">Post a Job</a>
+            <a th:href="@{/jobs/employer/jobs}">My Postings</a>
+        </span>
+
+        <span sec:authorize="hasRole('JOB_SEEKER')">
+            <a th:href="@{/jobs/seeker/applications}">My Applications</a>
+        </span>
+
+        <span sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">Logout</a>
+        </span>
+
+        <span sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/register}">Register</a>
+        </span>
+    </div>
+</nav>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${job.title} + ' - JobConnect'"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div class="card">
+        <h1 th:text="${job.title}"></h1>
+        <p class="muted" th:text="${job.companyName} + ' · ' + ${job.location}"></p>
+        <p><span class="badge" th:text="'Salary: ' + ${job.salary}"></span>
+           <span class="badge" th:text="'Deadline: ' + ${#temporals.format(job.deadline, 'dd MMM yyyy')}"></span></p>
+        <hr/>
+        <p th:text="${job.description}" style="white-space: pre-line;"></p>
+
+        <div class="alert error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+        <form th:action="@{'/jobs/apply/' + ${job.id}}" method="post" sec:authorize="hasRole('JOB_SEEKER')">
+            <button class="btn" type="submit">Apply Now</button>
+        </form>
+
+        <p class="muted" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Log in</a> as a job seeker to apply.
+        </p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Browse Jobs - JobConnect</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>Browse Jobs</h1>
+
+    <form th:action="@{/jobs/search}" method="get" class="search-bar">
+        <input type="text" name="keyword" placeholder="Keyword (e.g. Java Developer)" th:value="${keyword}"/>
+        <input type="text" name="location" placeholder="Location (e.g. Bangalore)" th:value="${location}"/>
+        <button class="btn" type="submit">Search</button>
+    </form>
+
+    <div th:if="${#lists.isEmpty(jobs)}" class="card">
+        <p class="muted">No jobs found. Try a different search.</p>
+    </div>
+
+    <div class="card" th:each="job : ${jobs}">
+        <h3><a th:href="@{'/jobs/view/' + ${job.id}}" th:text="${job.title}"></a></h3>
+        <p class="muted" th:text="${job.companyName} + ' · ' + ${job.location}"></p>
+        <p th:text="${#strings.abbreviate(job.description, 160)}"></p>
+        <span class="badge" th:text="'Deadline: ' + ${#temporals.format(job.deadline, 'dd MMM yyyy')}"></span>
+    </div>
+</div>
+</body>
+</html>
