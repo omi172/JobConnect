@@ -31,7 +31,7 @@
                 <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
             </div>
             <div class="field">
-                <label>Phone Number (for SMS notifications, E.164 format e.g. +15551234567)</label>
+                <label>Phone Number</label>
                 <input type="text" th:field="*{phoneNumber}" placeholder="+15551234567"/>
             </div>
             <div class="field">
