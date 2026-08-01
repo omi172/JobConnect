@@ -17,12 +17,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-/**
- * Reads a JWT from either the "Authorization: Bearer" header (useful for API
- * clients) or the "jwt" HttpOnly cookie (used by the Thymeleaf web UI), then
- * populates the SecurityContext so both the MVC pages and REST endpoints
- * share a single authentication mechanism.
- */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {

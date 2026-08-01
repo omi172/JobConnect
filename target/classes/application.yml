@@ -21,7 +21,11 @@ jobconnect:
       account-sid: ${TWILIO_ACCOUNT_SID:}
       auth-token: ${TWILIO_AUTH_TOKEN:}
       from-number: ${TWILIO_FROM_NUMBER:}
-
+  de:
+    flapdoodle:
+      mongodb:
+        embedded:
+          version: 4.4.0
 logging:
   level:
     com.jobconnect: DEBUG
