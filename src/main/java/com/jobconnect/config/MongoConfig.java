@@ -4,8 +4,8 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import de.flapdoodle.embed.mongo.distribution.IFeatureAwareVersion;
-import de.flapdoodle.embed.mongo.distribution.Version;
+//import de.flapdoodle.embed.mongo.distribution.IFeatureAwareVersion;
+//import de.flapdoodle.embed.mongo.distribution.Version;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,9 +48,9 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
         return MongoClients.create(settings);
     }
-    @Bean
-    public IFeatureAwareVersion mongoVersion() {
-        return Version.Main.V4_4;
-    }
+//    @Bean
+//    public IFeatureAwareVersion mongoVersion() {
+//        return Version.Main.V4_4;
+//    }
 }
 
